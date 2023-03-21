@@ -30,3 +30,29 @@
 *.exe
 *.out
 *.app
+
+# Files to ignore
+*.sav
+*.bak
+*.old
+*.swp
+*.kate-swp
+*.pyc
+*.bin
+.~*
+*~
+
+# PlatformIO specific
+.clang_complete
+.gcc-flags.json
+.pioenvs
+.piolibdeps
+
+# others
+.vscode
+
+# KiCad
+.bck
+.sch-bak
+fp-info-cache
+
