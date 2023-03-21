@@ -4,8 +4,8 @@
 #include <M5Stack.h>
 #include <Stepper.h>
 
-const char *ssid     = "OnePlus 8t";
-const char *password = "Lilian12";
+const char *ssid     = "nomduréseau";
+const char *password = "mdp";
 int timeBefore = 0;
 
 const long utcOffsetInSeconds = 2 * 60 * 60;
