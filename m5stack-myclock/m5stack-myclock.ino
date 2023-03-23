@@ -57,3 +57,27 @@ void loop() {
   }
 }
 
+void loop() {
+  timeClient.update();
+  if (timeClient.getSeconds() != timeBefore) {
+    M5.Lcd.setTextSize(6);
+    M5.Lcd.setCursor(20, 90);
+    M5.Lcd.setTextColor(TFT_BLACK, TFT_BLACK);
+    M5.Lcd.print(timeBefore);
+
+    M5.Lcd.setCursor(20, 90);
+    M5.Lcd.setTextColor(TFT_YELLOW, TFT_BLACK);
+    M5.Lcd.println(timeClient.getFormattedTime());
+
+    // Ajout pour afficher la date
+    M5.Lcd.setTextSize(4);
+    M5.Lcd.setCursor(20, 200);
+    M5.Lcd.setTextColor(TFT_YELLOW, TFT_BLACK);
+    M5.Lcd.print(String(timeClient.getDay()) + "/" + String(timeClient.getMonth()) + "/" + String(timeClient.getYear()));
+
+    timeBefore = timeClient.getSeconds();
+
+    Serial.println("MPAP action " + String(timeClient.getSeconds()));
+    mpap.step(stepperPasTour / 60);
+  }
+}
