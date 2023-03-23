@@ -1,11 +1,10 @@
-
 #include <NTPClient.h>
 #include <WiFi.h>
 #include <M5Stack.h>
 #include <Stepper.h>
 
-const char *ssid     = "nomduréseau";
-const char *password = "mdp";
+const char *ssid = "Nom_du_réseaux";
+const char *password = "mots_de_passe";
 int timeBefore = 0;
 
 const long utcOffsetInSeconds = 2 * 60 * 60;
@@ -14,8 +13,8 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 //------------------------------------- Moteur pas a pas (mpap)
-const int stepperPasTour = 2048;     // Nombre de pas par tour
-#define mpapFilBleu 16     // Pour cablage
+const int stepperPasTour = 2048;  // Nombre de pas par tour
+#define mpapFilBleu 16            // Pour cablage
 #define mpapFilRose 17
 #define mpapFilJaune 2
 #define mpapFilOrange 5
@@ -28,9 +27,9 @@ void setup() {
   WiFi.begin(ssid, password);
   M5.Power.begin();
 
-  while ( WiFi.status() != WL_CONNECTED ) {
-    delay (500);
-    Serial.print ( "." );
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
   }
 
   mpap.setSpeed(15);
@@ -40,31 +39,21 @@ void setup() {
 void loop() {
   timeClient.update();
 
-  if (timeClient.getSeconds() != timeBefore)
-  {
+  if (timeClient.getSeconds() != timeBefore) {
     M5.Lcd.setTextSize(6);
-    
+
     M5.Lcd.setCursor(20, 90);
     M5.Lcd.setTextColor(TFT_BLACK, TFT_BLACK);
     M5.Lcd.print(timeBefore);
-    
+
     M5.Lcd.setCursor(20, 90);
     M5.Lcd.setTextColor(TFT_YELLOW, TFT_BLACK);
     M5.Lcd.println(timeClient.getFormattedTime());
 
-    M5.Lcd.setCursor(20, 160);
-    M5.Lcd.setTextColor(TFT_YELLOW, TFT_BLACK);
-    M5.Lcd.print("Date: ");
-
-
-    M5.Lcd.setCursor(20, 220);
-    M5.Lcd.setTextColor(TFT_YELLOW, TFT_BLACK);
-    M5.Lcd.print("UTC Time: ");
-    M5.Lcd.println(timeClient.getFormattedTime());
-
     timeBefore = timeClient.getSeconds();
-    
+
     Serial.println("MPAP action " + String(timeClient.getSeconds()));
-    mpap.step(stepperPasTour/60);
+    mpap.step(stepperPasTour / 60);
   }
 }
+
