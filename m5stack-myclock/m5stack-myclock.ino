@@ -1,3 +1,4 @@
+// Pour afficher l'heure 
 #include <NTPClient.h>
 #include <WiFi.h>
 #include <M5Stack.h>
@@ -57,6 +58,7 @@ void loop() {
   }
 }
 
+//affiche la date
 void loop() {
   timeClient.update();
   if (timeClient.getSeconds() != timeBefore) {
@@ -81,3 +83,5 @@ void loop() {
     mpap.step(stepperPasTour / 60);
   }
 }
+
+//pictogramme de la méteo
