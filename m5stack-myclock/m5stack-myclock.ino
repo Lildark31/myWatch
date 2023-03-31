@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-
-// Pour afficher l'heure
-=======
 // Pour afficher l'heure 
-#include <NTPClient.h>
->>>>>>> 79e8c44b7c6986d32163444ac45f8ba5342f51f4
 #include <WiFi.h>
 #include <M5Stack.h>
 #include <time.h>                         // time() ctime()
@@ -13,7 +7,6 @@
 #include <HTTPClient.h>
 #include "neocampus_debug.h"
 
-<<<<<<< HEAD
 // Time related definitions
 #define MYTZ                    "CET-1CEST,M3.5.0/2,M10.5.0/3"
 //#define NTP_DEFAULT_SERVER1       "time.nist.gov"     // DNS location aware
@@ -26,12 +19,6 @@
 bool cbtime_set = false;
 bool _cbtime_call = false;          // used to display things about time sync
 time_t cbtime_cur, cbtime_prev;     // time set in callback
-=======
-const char *ssid = "Nom_du_réseaux";
-const char *password = "mots_de_passe";
-const long utcOffsetInSeconds = 3600; // Décalage horaire en secondes (pour la France)
-
->>>>>>> 79e8c44b7c6986d32163444ac45f8ba5342f51f4
 
 // JSON related definitons
 #define HTTP_URL_MAXSIZE              256   // maximum size of a URL
@@ -61,8 +48,8 @@ unsigned long timerDelay = 20000;
 
 
 //Connection au réseau avec mot de passe et le nom
-const char *ssid = "amilab";
-const char *password = "neocampus";
+const char ssid[] = "amilab";
+const char password[] = "neocampus";
 
 // type for mac address in raw format
 typedef uint8_t mac_addr_t[6];
@@ -236,13 +223,10 @@ void setup() {
 
   Serial.begin(115200);
   delay(3000);
-<<<<<<< HEAD
   log_info(F("\nmyWatch on M5stack is starting ..."));log_flush();
   log_info(F("\n\tMAC ADDR : "));log_info(getMacAddress());
   log_info(F("\n")); log_flush();
   
-=======
->>>>>>> 79e8c44b7c6986d32163444ac45f8ba5342f51f4
   M5.begin();
   WiFi.begin(ssid, password);
   M5.Power.begin();
@@ -262,7 +246,6 @@ void setup() {
 //date et heure
 void loop() {
 
-<<<<<<< HEAD
   M5.Lcd.setTextSize(4);
   
   M5.Lcd.setCursor(75, 90);
@@ -314,31 +297,4 @@ void loop() {
 
     lastTime = millis();
   }
-=======
-  if (timeClient.getSeconds() != timeBefore)
-  {
-    M5.Lcd.setTextSize(4);
-    
-    M5.Lcd.setCursor(75, 90);
-    M5.Lcd.setTextColor(TFT_BLUE, TFT_BLACK);
-    M5.Lcd.println(timeClient.getFormattedTime());
-
-    // Récupère la date actuelle à partir de timeClient.getEpochTime()
-    time_t now = timeClient.getEpochTime();
-    struct tm timeinfo;
-    localtime_r(&now, &timeinfo);
-
-    // Affiche la date sur l'écran
-    M5.Lcd.setTextSize(3);
-    M5.Lcd.setCursor(75, 140);
-    M5.Lcd.setTextColor(TFT_GREEN, TFT_BLACK);
-    M5.Lcd.printf("%02d/%02d/%d", timeinfo.tm_mday, timeinfo.tm_mon + 1, timeinfo.tm_year + 1900);
-
-    timeBefore = timeClient.getSeconds();
-    
-    Serial.println("MPAP action " + String(timeClient.getSeconds()));
-    mpap.step(stepperPasTour/60);
-
-   }
->>>>>>> 79e8c44b7c6986d32163444ac45f8ba5342f51f4
 }
