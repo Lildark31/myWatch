@@ -257,9 +257,9 @@ void loop() {
   M5.Lcd.setCursor(75, 140);
   M5.Lcd.setTextColor(TFT_GREEN, TFT_BLACK);
   M5.Lcd.printf(getCurTime("%Y-%m-%d"));
-
+  
   //meteo
-  // Send an HTTP GET request
+  //Send an HTTP GET request
   if ( ((millis() - lastTime) > timerDelay) and (WiFi.status()== WL_CONNECTED)) {
 
     // create request
@@ -276,8 +276,13 @@ void loop() {
         log_error(F("\n[myWatch] ERROR parsing HTTP answer: "));log_error(err.c_str()); log_flush();
       }
       else {
-        serializeJsonPretty( root, Serial );
-/*  
+        serializeJsonPretty( root, Serial ); 
+    //Température
+  M5.Lcd.setTextSize(3);
+  M5.Lcd.setCursor(85,40 );
+  M5.Lcd.setTextColor(TFT_GREEN, TFT_BLACK);
+  M5.Lcd.printf(["main"]["temp");
+/*
         Serial.print("JSON object = ");
         Serial.println(myObject);
         Serial.print("Temperature: ");
@@ -298,3 +303,48 @@ void loop() {
     lastTime = millis();
   }
 }
+
+/*
+14:20:21.415 ->   "coord": {
+14:20:21.415 ->     "lon": 1.4437,
+14:20:21.415 ->     "lat": 43.6043
+14:20:21.415 ->   },
+14:20:21.415 ->   "weather": [
+14:20:21.415 ->     {
+14:20:21.415 ->       "id": 804,
+14:20:21.415 ->       "main": "Clouds",
+14:20:21.415 ->       "description": "overcast clouds",
+14:20:21.415 ->       "icon": "04d"
+14:20:21.415 ->     }
+14:20:21.415 ->   ],
+14:20:21.415 ->   "base": "stations",
+14:20:21.415 ->   "main": {
+14:20:21.415 ->     "temp": 288.14,
+14:20:21.448 ->     "feels_like": 287.34,
+14:20:21.448 ->     "temp_min": 288.04,
+14:20:21.448 ->     "temp_max": 288.57,
+14:20:21.448 ->     "pressure": 1018,
+14:20:21.448 ->     "humidity": 63
+14:20:21.448 ->   },
+14:20:21.448 ->   "visibility": 10000,
+14:20:21.448 ->   "wind": {
+14:20:21.448 ->     "speed": 8.75,
+14:20:21.448 ->     "deg": 280
+14:20:21.448 ->   },
+14:20:21.448 ->   "clouds": {
+14:20:21.448 ->     "all": 100
+14:20:21.448 ->   },
+14:20:21.448 ->   "dt": 1680264812,
+14:20:21.481 ->   "sys": {
+14:20:21.481 ->     "type": 1,
+14:20:21.481 ->     "id": 6467,
+14:20:21.481 ->     "country": "FR",
+14:20:21.481 ->     "sunrise": 1680241101,
+14:20:21.481 ->     "sunset": 1680286703
+14:20:21.481 ->   },
+14:20:21.481 ->   "timezone": 7200,
+14:20:21.481 ->   "id": 2972315,
+14:20:21.481 ->   "name": "Toulouse",
+14:20:21.481 ->   "cod": 200
+14:20:21.481 -> }
+*/
